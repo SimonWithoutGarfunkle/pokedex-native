@@ -15,7 +15,7 @@ type Props = ViewProps &{
     backgroundColor?: string
 };
 
-export function RootView({style, backgroundColor, ...rest}: Props) {
+export function RootView({style, backgroundColor, children, ...rest}: Props) {
     const colors = useThemeColors();
     const progress = useSharedValue(0);
     const animatedStyle = useAnimatedStyle(() => {
@@ -39,17 +39,13 @@ export function RootView({style, backgroundColor, ...rest}: Props) {
         }
     }, [backgroundColor, progress])
 
-    if (!backgroundColor) {
-        return (
-            <SafeAreaView style={[rootStyle, {backgroundColor: colors.tint}, style]} {...rest} />
-        );
-    }
     return (
-        <Animated.View style={[{flex: 1}, animatedStyle, style]}>
-        <SafeAreaView style={rootStyle}  {...rest}/>
-    </Animated.View>
-    )
-
+        <Animated.View style={[{flex: 1}, animatedStyle]}>
+            <SafeAreaView style={[rootStyle, style]} edges={["top", "bottom"]} {...rest}>
+                {children}
+            </SafeAreaView>
+        </Animated.View>
+    );
 }
 
 const rootStyle = {
