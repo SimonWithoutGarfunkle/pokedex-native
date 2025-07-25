@@ -7,10 +7,26 @@ type API = {
         count: number,
         next: string | null,
         results: {name: string, url: string}[]
-    }
+    },
+    '/pokemon/[id]': {
+        id: number,
+        name: string,
+        url: string,
+        height: number,
+        weight: number,
+        moves: {move: {name: string}}[],
+        stats: {
+            base_stat: number,
+            stat: {name: string}
+        }[],
+        types: {type: {name: string}}[],
+        cries: {
+            latest: string
+        }
+    },
 }
 
-export function useFetchQuery<T extends keyof API>(path: T) {
+export function useFetchQuery<T extends keyof API>(path: T, params?: Record<string, string | number>) {
     return useQuery({
         queryKey: [path],
         queryFn: async () => {
