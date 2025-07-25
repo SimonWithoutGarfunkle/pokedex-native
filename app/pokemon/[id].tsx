@@ -12,13 +12,65 @@ import {PokemonType} from "@/components/pokemon/PokemonType";
 import {PokemonSpec} from "@/components/pokemon/PokemonSpec";
 import {PokemonStat} from "@/components/pokemon/PokemonStat";
 import {Audio} from 'expo-av';
+import PagerView from "react-native-pager-view";
+import {useRef, useState} from "react";
+
 
 export default function Pokemon() {
-    const colors = useThemeColors();
     const params = useLocalSearchParams() as { id: string };
-    const { data: pokemon } = useFetchQuery("/pokemon/[id]", {id: params.id});
-    const id = parseInt(params.id, 10);
-    const { data: species } = useFetchQuery("/pokemon-species/[id]", {id: params.id});
+    const [id, setId] = useState(parseInt(params.id, 10));
+    const offset = useRef(1);
+    const pager = useRef<PagerView>(null);
+
+    const onPageSelected = (e: {nativeEvent: {position: number }}) => {
+        offset.current = e.nativeEvent.position - 1;
+    }
+
+    const onPageScrollStateChanged = (e: {nativeEvent: {pageScrollState: string }}) => {
+        if (e.nativeEvent.pageScrollState !== "idle") return;
+        if (offset.current === -1 && id === 2) return;
+        if (offset.current === 1 && id === 1025) return;
+        if (e.nativeEvent.pageScrollState === "idle" && offset.current !== 0) {
+            setId(id + offset.current);
+            offset.current = 0;
+            pager.current?.setPageWithoutAnimation(1)
+        }
+    };
+    
+    const onPrevious = () => {
+        pager.current?.setPage(0)
+
+    }
+
+    const onNext = () => {
+        pager.current?.setPage(2 + offset.current)
+    }
+
+    return (
+        <PagerView
+            ref={pager}
+            onPageSelected={onPageSelected}
+            onPageScrollStateChanged={onPageScrollStateChanged}
+            initialPage={1} style={{flex: 1}}
+        >
+            <PokemonView key={id - 1} id={id - 1} onPrevious={onPrevious} onNext={onNext}  />
+            <PokemonView key={id} id={id} onPrevious={onPrevious} onNext={onNext}  />
+            <PokemonView key={id + 1} id={id + 1} onPrevious={onPrevious} onNext={onNext}  />
+        </PagerView>
+    )
+}
+
+type Props = {
+    id: number,
+    onPrevious: () => void,
+    onNext: () => void,
+}
+
+ function PokemonView({id, onNext, onPrevious}: Props) {
+    const colors = useThemeColors();
+
+    const { data: pokemon } = useFetchQuery("/pokemon/[id]", {id: id});
+    const { data: species } = useFetchQuery("/pokemon-species/[id]", {id: id});
     const mainType = pokemon?.types?.[0].type.name;
     const colorType = mainType ? Colors.type[mainType] : colors.tint;
     const types = pokemon?.types ?? [];
@@ -35,20 +87,6 @@ export default function Pokemon() {
         }, {shouldPlay: true });
         sound.playAsync();
     };
-
-    const onPrevious = () => {
-        router.replace({
-            pathname: '/pokemon/[id]',
-            params: { id: Math.max(id - 1, 1) }
-        })
-    }
-
-    const onNext = () => {
-        router.replace({
-            pathname: '/pokemon/[id]',
-            params: { id: Math.min(id + 1, 1025) }
-        })
-    }
 
     return <RootView backgroundColor={colorType}>
         <View>
@@ -69,7 +107,7 @@ export default function Pokemon() {
                     </Row>
                 </Pressable>
                 <ThemedText color="grayWhite" variant="subtitle2">
-                    #{params.id.padStart(3, "0")}
+                    #{id.toString().padStart(3, "0")}
                 </ThemedText>
             </Row>
             <Card style={[styles.card, { overflow: "visible"}]}>
@@ -80,12 +118,12 @@ export default function Pokemon() {
                     <Pressable onPress={onImagePress}>
                         <Image
                             style={styles.artwork}
-                            source={{uri: getPokemonArtwork(params.id)}}
+                            source={{uri: getPokemonArtwork(id)}}
                             width={200}
                             height={200}
                         />
                     </Pressable>
-                    { id !== 1025 ? (<Pressable onPress={onNext}>
+                    { id < 1025 ? (<Pressable onPress={onNext}>
                         <Image source={require('@/assets/images/chevron_right.png')} width={24} height={24} />
                     </Pressable>) : <View  style={{width: 24, height:24}}/>}
                 </Row>
