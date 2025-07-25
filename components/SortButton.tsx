@@ -15,7 +15,7 @@ type Props = {
 const options = [
     {label: "Number", value: "id"},
     {label: "Name", value: "name"},
-]
+] as const;
 
 export function SortButton({ value, onChange}: Props) {
     const buttonRef = useRef<View>(null)
@@ -66,7 +66,7 @@ export function SortButton({ value, onChange}: Props) {
                     <Card style={styles.card}>
                         { options.map(option => (
                             <Pressable onPress={() => onChange(option.value)} key={option.value} >
-                                <Row key={option.value} gap={8}>
+                                <Row gap={8}>
                                     <Radio checked={option.value === value} />
                                     <ThemedText>{option.label}</ThemedText>
                                 </Row>
