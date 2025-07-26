@@ -4,7 +4,7 @@
     "slug": "pokenative",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/poke-icon.png",
+    "icon": "./assets/images/pokenative-icon.png",
     "scheme": "pokenative",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/poke-icon.png",
+        "foregroundImage": "./assets/images/pokenative-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
@@ -29,7 +29,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/poke-icon.png",
+          "image": "./assets/images/pokenative-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
