@@ -1,50 +1,45 @@
-# Welcome to your Expo app 👋
+# Pokedex – React Native
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Ce dépôt correspond à un projet **Pokedex** réalisé dans le cadre d’un tutoriel en ligne, utilisé pour découvrir le développement mobile avec **React Native** et **Expo**.
 
-## Get started
+Le projet suit pas à pas un cours de Grafikart, depuis la création de l’application jusqu’à la génération d’un **APK Android**, afin de comprendre l’ensemble du cycle de vie d’une application mobile.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 🎯 Objectifs du projet
 
-2. Start the app
+- Découvrir les bases de React Native
+- Comprendre le fonctionnement d’Expo
+- Apprendre à structurer une application mobile simple
+- Aller jusqu’au build et à la livraison d’une application Android
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 🛠️ Technologies
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- **React Native**
+- **Expo**
+- **JavaScript**
+- API publique PokeAPI
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 📚 Source du tutoriel
 
-When you're ready, run:
+Cours suivi :  
+Grafikart — *Créer une application mobile avec React Native & Expo*  
+https://www.youtube.com/watch?v=0EOucUY_F0c
 
-```bash
-npm run reset-project
-```
+---
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 📌 Remarques
 
-## Learn more
+L’objectif principal de ce dépôt est pédagogique.  
+Certaines décisions techniques reflètent celles du tutoriel et n’ont pas vocation à constituer une architecture de production.
 
-To learn more about developing your project with Expo, look at the following resources:
+---
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🤝 Contact
+Projet personnel à but pédagogique, réalisé en parallèle d’autres projets afin de renforcer mes compétences en développement logiciel.
+Des remarques ? Des questions ?  
+N’hésitez pas à [me contacter](https://www.linkedin.com/in/simon-lefort-6a58a482/).
